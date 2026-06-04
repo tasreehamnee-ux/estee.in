@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>استمارة منح هوية الوزارة - وزارة الشباب والرياضة</title>
+    <title>استمارة منح هوية الوزارة - نموذج تواصل</title>
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -13,7 +13,6 @@
     <meta name="format-detection" content="telephone=no">
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
@@ -26,20 +25,217 @@
 
         body {
             font-family: 'Cairo', Arial, sans-serif;
-            background: #e0e0e0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             padding: 0;
             margin: 0;
             direction: rtl;
+            min-height: 100vh;
         }
 
-        /* صفحة A4 */
+        /* ====== نموذج التواصل ====== */
+        .contact-form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #166534 0%, #0d4a1c 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .form-header h1 {
+            font-size: 24pt;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            font-size: 12pt;
+            opacity: 0.9;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-section-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #166534;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section-title .icon {
+            font-size: 18pt;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .form-group.full-width {
+            flex: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 11pt;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group label .required {
+            color: #e74c3c;
+            margin-right: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Cairo', Arial, sans-serif;
+            font-size: 11pt;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .form-control:focus {
+            border-color: #166534;
+            background: white;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.1);
+        }
+
+        .form-control[dir="ltr"] {
+            text-align: left;
+        }
+
+        /* نوع الإصدار - نمط أزرار الاختيار */
+        .issue-type-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .issue-type-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            font-family: 'Cairo', Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: 600;
+        }
+
+        .issue-type-btn:hover {
+            border-color: #166534;
+            background: #f0f9f0;
+        }
+
+        .issue-type-btn.active {
+            border-color: #166534;
+            background: #166534;
+            color: white;
+        }
+
+        .issue-type-btn .check-icon {
+            display: none;
+            font-size: 16pt;
+            margin-bottom: 5px;
+        }
+
+        .issue-type-btn.active .check-icon {
+            display: block;
+        }
+
+        /* أزرار التحكم */
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Cairo', Arial, sans-serif;
+            font-size: 12pt;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            min-width: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #166534 0%, #0d4a1c 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            color: white;
+        }
+
+        /* ====== الاستمارة للطباعة ====== */
+        .print-form-container {
+            display: none;
+        }
+
+        /* صفحة A4 - بدون page-break */
         .a4-page {
             width: 210mm;
             height: 296mm;
             margin: 0 auto;
             background: white;
             position: relative;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
             overflow: hidden;
             padding: 0;
         }
@@ -61,16 +257,16 @@
             background-position: center;
         }
 
-        /* الترويسة - معدلة حسب الصورة */
+        /* الترويسة */
         .header-wrapper {
-            padding: 6mm 8mm 0 8mm; /* زيادة الهوامش حول الترويسة */
+            padding: 6mm 8mm 0 8mm;
         }
 
         .header {
             position: relative;
             height: 35mm;
             background: #c8e6c9;
-            border: 3px dashed #0d4a1c; /* خط متقطع أكثر وضوحاً */
+            border: 3px dashed #0d4a1c;
             border-radius: 3mm;
             display: flex;
             justify-content: space-between;
@@ -125,14 +321,14 @@
             font-size: 13pt;
             font-weight: bold;
             color: #000;
-            margin: 10mm 0 8mm 0; /* زيادة الهوامش العلوية والسفلية */
+            margin: 10mm 0 8mm 0;
             position: relative;
             z-index: 1;
         }
 
         /* المحتوى */
         .content {
-            padding: 0 14mm; /* زيادة الهوامش الجانبية */
+            padding: 0 14mm;
             position: relative;
             z-index: 1;
         }
@@ -141,7 +337,7 @@
         .field-row {
             display: flex;
             align-items: center;
-            margin-bottom: 4mm; /* زيادة المسافة بين الصفوف */
+            margin-bottom: 4mm;
             width: 100%;
         }
 
@@ -201,7 +397,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            margin: 5mm 0; /* زيادة الهوامش */
+            margin: 5mm 0;
             gap: 4mm;
         }
 
@@ -233,7 +429,6 @@
             font-size: 9pt;
             font-weight: 600;
             white-space: nowrap;
-            cursor: pointer;
         }
 
         .check-box {
@@ -265,7 +460,7 @@
             display: flex;
             justify-content: space-between;
             gap: 4mm;
-            margin: 5mm 0; /* زيادة الهوامش */
+            margin: 5mm 0;
         }
 
         .main-sig {
@@ -291,7 +486,7 @@
             display: flex;
             justify-content: space-between;
             gap: 3mm;
-            margin: 5mm 0; /* زيادة الهوامش */
+            margin: 5mm 0;
         }
 
         .sub-sig {
@@ -314,25 +509,25 @@
 
         /* الملاحظات */
         .notes-section {
-            margin-top: 6mm; /* زيادة الهامش العلوي */
+            margin-top: 6mm;
         }
 
         .notes-title {
             font-weight: bold;
             font-size: 11pt;
-            margin-bottom: 3mm; /* زيادة الهامش السفلي */
+            margin-bottom: 3mm;
             color: #000;
         }
 
         .notes-list {
             list-style: none;
             font-size: 9pt;
-            line-height: 1.8; /* زيادة التباعد بين الأسطر */
+            line-height: 1.8;
             color: #000;
         }
 
         .notes-list li {
-            margin-bottom: 3mm; /* زيادة المسافة بين النقاط */
+            margin-bottom: 3mm;
             text-indent: -3mm;
             padding-right: 3mm;
         }
@@ -340,79 +535,69 @@
         /* تذييل الصفحة */
         .footer {
             position: absolute;
-            bottom: 4mm; /* زيادة الهامش السفلي */
-            left: 8mm; /* زيادة الهامش الأيسر */
+            bottom: 4mm;
+            left: 8mm;
             font-size: 8pt;
             color: #666;
             z-index: 1;
         }
 
-        /* أزرار التحكم */
-        .controls {
-            text-align: center;
-            margin: 20px;
-            direction: rtl;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Cairo', Arial;
-            font-size: 12pt;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            min-width: 140px;
-        }
-
-        .btn-print { background: #4caf50; color: white; }
-        .btn-pdf { background: #2196f3; color: white; }
-        .btn-clear { background: #f44336; color: white; }
-
-        /* إعدادات الطباعة */
+        /* ====== إعدادات الطباعة - مهم جداً ====== */
         @media print {
             @page {
                 size: A4 portrait;
                 margin: 0;
             }
 
-            body {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            html, body {
                 background: white !important;
                 padding: 0 !important;
                 margin: 0 !important;
+                min-height: auto !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+
+            /* إخفاء نموذج التواصل */
+            .contact-form-container {
+                display: none !important;
+            }
+
+            /* إظهار الاستمارة بشكل صحيح */
+            .print-form-container {
+                display: block !important;
+                position: static !important;
                 width: 210mm !important;
-                height: 297mm !important;
+                margin: 0 auto !important;
             }
 
             .a4-page {
                 box-shadow: none !important;
-                margin: 0 !important;
+                margin: 0 auto !important;
                 width: 210mm !important;
-                height: 297mm !important;
-                overflow: visible !important;
-            }
-
-            .controls {
-                display: none !important;
+                height: 296mm !important;
+                min-height: 296mm !important;
+                max-height: 296mm !important;
+                overflow: hidden !important;
+                /* ❌ تم إزالة page-break-after: always */
+                /* ❌ تم إزالة page-break-inside: avoid */
+                /* ❌ تم إزالة break-inside: avoid */
             }
 
             .header-wrapper {
-                padding: 6mm 8mm 0 8mm !important; /* هوامش أكبر في الطباعة */
+                padding: 6mm 8mm 0 8mm !important;
             }
 
             .header {
                 background: #c8e6c9 !important;
                 height: 35mm !important;
-                border: 3px dashed #0d4a1c !important; /* خط متقطع أكثر وضوحاً */
+                border: 3px dashed #0d4a1c !important;
                 border-radius: 3mm !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
             }
 
             .watermark {
@@ -440,11 +625,11 @@
             }
 
             .content {
-                padding: 0 14mm !important; /* هوامش جانبية أكبر في الطباعة */
+                padding: 0 14mm !important;
             }
 
             .main-title {
-                margin: 10mm 0 8mm 0 !important; /* هوامش أكبر في الطباعة */
+                margin: 10mm 0 8mm 0 !important;
             }
 
             .field-row {
@@ -465,12 +650,6 @@
                 bottom: 4mm !important;
                 left: 8mm !important;
             }
-
-            * {
-                color: #000000 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
         }
 
         /* الموبايل */
@@ -480,13 +659,27 @@
                 background: #f5f5f5;
             }
 
-            .a4-page {
-                width: 100%;
-                height: auto;
-                margin: 0 auto 20px;
+            .form-card {
+                padding: 20px;
             }
 
-            .controls {
+            .form-row {
+                flex-direction: column;
+            }
+
+            .form-group {
+                min-width: 100%;
+            }
+
+            .issue-type-group {
+                flex-direction: column;
+            }
+
+            .issue-type-btn {
+                min-width: 100%;
+            }
+
+            .form-actions {
                 position: fixed;
                 bottom: 0;
                 left: 0;
@@ -505,223 +698,398 @@
         }
     </style>
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
 
-    <!-- أزرار التحكم -->
-    <div class="controls">
-        <button class="btn btn-print" onclick="printForm()">🖨️ طباعة</button>
-        <button class="btn btn-pdf" onclick="savePDF()">📄 حفظ PDF</button>
-        <button class="btn btn-clear" onclick="clearForm()">🗑️ مسح</button>
+    <!-- ====== نموذج التواصل ====== -->
+    <div class="contact-form-container">
+        <div class="form-header">
+            <h1>📋 استمارة منح هوية الوزارة</h1>
+            <p>وزارة الشباب والرياضة - مكتب التصاريح الأمنية</p>
+        </div>
+
+        <div class="form-card">
+            <div class="form-section-title">
+                <span class="icon">👤</span>
+                <span>المعلومات الشخصية</span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label>الاسم الرباعي واللقب <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="form-fullName" placeholder="أدخل الاسم الرباعي واللقب">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label>الاسم باللغة الإنجليزية</label>
+                    <input type="text" class="form-control" id="form-englishName" dir="ltr" placeholder="Enter full name in English">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-card">
+            <div class="form-section-title">
+                <span class="icon">💼</span>
+                <span>المعلومات الوظيفية</span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>العنوان الوظيفي الحالي <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="form-jobTitle" placeholder="أدخل العنوان الوظيفي">
+                </div>
+                <div class="form-group">
+                    <label>المنصب <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="form-position" placeholder="أدخل المنصب">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label>اسم الدائرة أو المديرية <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="form-circleName" placeholder="أدخل اسم الدائرة أو المديرية">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-card">
+            <div class="form-section-title">
+                <span class="icon">📱</span>
+                <span>معلومات الاتصال ونوع الإصدار</span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>رقم الموبايل <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="form-mobileNumber" dir="ltr" placeholder="07XX XXX XXXX">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label>نوع الإصدار <span class="required">*</span></label>
+                    <div class="issue-type-group">
+                        <button type="button" class="issue-type-btn" data-value="new" onclick="selectIssueType(this)">
+                            <span class="check-icon">✓</span>
+                            <div>إصدار جديد</div>
+                        </button>
+                        <button type="button" class="issue-type-btn" data-value="replace" onclick="selectIssueType(this)">
+                            <span class="check-icon">✓</span>
+                            <div>تبديل</div>
+                        </button>
+                        <button type="button" class="issue-type-btn" data-value="damaged" onclick="selectIssueType(this)">
+                            <span class="check-icon">✓</span>
+                            <div>بدل تالف</div>
+                        </button>
+                        <button type="button" class="issue-type-btn" data-value="lost" onclick="selectIssueType(this)">
+                            <span class="check-icon">✓</span>
+                            <div>بدل ضائع</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary" onclick="fillForm()">
+                <span>📝</span> تعبئة الاستمارة
+            </button>
+            <button class="btn btn-success" onclick="printForm()">
+                <span>🖨️</span> طباعة
+            </button>
+            <button class="btn btn-danger" onclick="clearAll()">
+                <span>🗑️</span> مسح الكل
+            </button>
+        </div>
     </div>
 
-    <!-- صفحة الاستمارة -->
-    <div class="a4-page" id="formPage">
-        <div class="watermark"></div>
+    <!-- ====== الاستمارة للطباعة ====== -->
+    <div class="print-form-container" id="printFormContainer">
+        <div class="a4-page" id="printFormPage">
+            <div class="watermark"></div>
 
-        <!-- الترويسة مع هوامش أكبر -->
-        <div class="header-wrapper">
-            <div class="header">
-                <div class="photo-box">صورة ٢</div>
-                <div class="logo-center">
-                    <img src="image.png" alt="شعار الوزارة" onerror="this.style.display='none'">
-                </div>
-                <div class="header-text">
-                    <div>جمهورية العراق</div>
-                    <div>وزارة الشباب والرياضة</div>
-                    <div>مكتب الوزير</div>
-                    <div>مكتب التصاريح الأمنية</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="main-title">استمارة منح هوية الوزارة</div>
-
-        <div class="content">
-            <!-- الاسم الرباعي -->
-            <div class="field-row">
-                <label class="field-label">الاسم الرباعي واللقب:</label>
-                <div class="field-input-box">
-                    <input type="text" class="field-input" id="fullName">
-                </div>
-            </div>
-
-            <!-- الاسم الإنجليزي -->
-            <div class="field-row">
-                <label class="field-label">الاسم باللغة الانكليزية:</label>
-                <div class="field-input-box">
-                    <input type="text" class="field-input" id="englishName" dir="ltr">
-                </div>
-            </div>
-
-            <!-- العنوان الوظيفي + توقيع -->
-            <div class="field-row" style="justify-content: space-between;">
-                <div style="display: flex; align-items: center; flex: 1;">
-                    <label class="field-label">العنوان الوظيفي الحالي:</label>
-                    <div class="field-input-box" style="max-width: 68mm;">
-                        <input type="text" class="field-input" id="jobTitle">
+            <div class="header-wrapper">
+                <div class="header">
+                    <div class="photo-box">صورة ٢</div>
+                    <div class="logo-center">
+                        <img src="image.png" alt="شعار الوزارة" onerror="this.style.display='none'">
+                    </div>
+                    <div class="header-text">
+                        <div>جمهورية العراق</div>
+                        <div>وزارة الشباب والرياضة</div>
+                        <div>مكتب الوزير</div>
+                        <div>مكتب التصاريح الأمنية</div>
                     </div>
                 </div>
-                <div class="signature-side">توقيع صاحب الطلب</div>
             </div>
 
-            <!-- المنصب + توقيع -->
-            <div class="field-row" style="justify-content: space-between;">
-                <div style="display: flex; align-items: center; flex: 1;">
-                    <label class="field-label">المنصب:</label>
-                    <div class="field-input-box" style="max-width: 68mm;">
-                        <input type="text" class="field-input" id="position">
+            <div class="main-title">استمارة منح هوية الوزارة</div>
+
+            <div class="content">
+                <!-- الاسم الرباعي -->
+                <div class="field-row">
+                    <label class="field-label">الاسم الرباعي واللقب:</label>
+                    <div class="field-input-box">
+                        <input type="text" class="field-input" id="fullName" readonly>
                     </div>
                 </div>
-                <div class="signature-side">توقيع مدير القسم</div>
-            </div>
 
-            <!-- اسم الدائرة -->
-            <div class="field-row" style="justify-content: space-between; margin-bottom: 2mm;">
-                <div style="display: flex; align-items: center; flex: 1;">
-                    <label class="field-label">اسم الدائرة أو المديرية:</label>
-                    <div class="field-input-box" style="max-width: 68mm;">
-                        <input type="text" class="field-input" id="circleName">
+                <!-- الاسم الإنجليزي -->
+                <div class="field-row">
+                    <label class="field-label">الاسم باللغة الانكليزية:</label>
+                    <div class="field-input-box">
+                        <input type="text" class="field-input" id="englishName" dir="ltr" readonly>
                     </div>
                 </div>
-                <div style="width: 46mm; margin-right: 4mm;"></div>
-            </div>
 
-            <!-- رقم الموبايل + نوع الإصدار -->
-            <div class="mobile-issue-row">
-                <div class="mobile-section">
-                    <label class="field-label">رقم الموبايل:</label>
-                    <div class="mobile-box">
-                        <input type="text" class="field-input" id="mobileNumber" dir="ltr">
+                <!-- العنوان الوظيفي + توقيع -->
+                <div class="field-row" style="justify-content: space-between;">
+                    <div style="display: flex; align-items: center; flex: 1;">
+                        <label class="field-label">العنوان الوظيفي الحالي:</label>
+                        <div class="field-input-box" style="max-width: 68mm;">
+                            <input type="text" class="field-input" id="jobTitle" readonly>
+                        </div>
+                    </div>
+                    <div class="signature-side">توقيع صاحب الطلب</div>
+                </div>
+
+                <!-- المنصب + توقيع -->
+                <div class="field-row" style="justify-content: space-between;">
+                    <div style="display: flex; align-items: center; flex: 1;">
+                        <label class="field-label">المنصب:</label>
+                        <div class="field-input-box" style="max-width: 68mm;">
+                            <input type="text" class="field-input" id="position" readonly>
+                        </div>
+                    </div>
+                    <div class="signature-side">توقيع مدير القسم</div>
+                </div>
+
+                <!-- اسم الدائرة -->
+                <div class="field-row" style="justify-content: space-between; margin-bottom: 2mm;">
+                    <div style="display: flex; align-items: center; flex: 1;">
+                        <label class="field-label">اسم الدائرة أو المديرية:</label>
+                        <div class="field-input-box" style="max-width: 68mm;">
+                            <input type="text" class="field-input" id="circleName" readonly>
+                        </div>
+                    </div>
+                    <div style="width: 46mm; margin-right: 4mm;"></div>
+                </div>
+
+                <!-- رقم الموبايل + نوع الإصدار -->
+                <div class="mobile-issue-row">
+                    <div class="mobile-section">
+                        <label class="field-label">رقم الموبايل:</label>
+                        <div class="mobile-box">
+                            <input type="text" class="field-input" id="mobileNumber" dir="ltr" readonly>
+                        </div>
+                    </div>
+                    <div class="issue-types">
+                        <label class="issue-item">
+                            <span class="check-box" id="check-new" data-value="new"></span>
+                            <span>إصدار جديد</span>
+                        </label>
+                        <label class="issue-item">
+                            <span class="check-box" id="check-replace" data-value="replace"></span>
+                            <span>تبديل</span>
+                        </label>
+                        <label class="issue-item">
+                            <span class="check-box" id="check-damaged" data-value="damaged"></span>
+                            <span>بدل تالف</span>
+                        </label>
+                        <label class="issue-item">
+                            <span class="check-box" id="check-lost" data-value="lost"></span>
+                            <span>بدل ضائع</span>
+                        </label>
                     </div>
                 </div>
-                <div class="issue-types">
-                    <label class="issue-item" onclick="toggleCheck(this)">
-                        <span class="check-box" data-value="new"></span>
-                        <span>إصدار جديد</span>
-                    </label>
-                    <label class="issue-item" onclick="toggleCheck(this)">
-                        <span class="check-box" data-value="replace"></span>
-                        <span>تبديل</span>
-                    </label>
-                    <label class="issue-item" onclick="toggleCheck(this)">
-                        <span class="check-box" data-value="damaged"></span>
-                        <span>بدل تالف</span>
-                    </label>
-                    <label class="issue-item" onclick="toggleCheck(this)">
-                        <span class="check-box" data-value="lost"></span>
-                        <span>بدل ضائع</span>
-                    </label>
+
+                <!-- التوقيعات الرئيسية -->
+                <div class="main-signatures-row">
+                    <div class="main-sig">
+                        ختم وتوقيع مدير عام دائرة الموظف
+                    </div>
+                    <div class="main-sig">
+                        ختم وتوقيع مدير قسم التصاريح الأمنية
+                    </div>
+                </div>
+
+                <!-- توقيعات المسؤولين -->
+                <div class="sub-signatures-row">
+                    <div class="sub-sig">
+                        توقيع مسؤول شعبة<br>المعلومات
+                    </div>
+                    <div class="sub-sig">
+                        توقيع مسؤول شعبة<br>التصاريح
+                    </div>
+                    <div class="sub-sig">
+                        توقيع مسؤول شعبة<br>الهويات
+                    </div>
+                </div>
+
+                <!-- الملاحظات -->
+                <div class="notes-section">
+                    <div class="notes-title">ملاحظات:-</div>
+                    <ul class="notes-list">
+                        <li><bdi>-1</bdi> يرفق نسخة من البطاقة الوطنية.</li>
+                        <li><bdi>-2</bdi> يرفق نسخة من الأمر الوزاري بالتعيين ونسخة من كتاب المباشرة في حال الإصدار الأول.</li>
+                        <li><bdi>-3</bdi> يرفق نسخة من الأمر الاداري في حال فقدان الهوية.</li>
+                        <li><bdi>-4</bdi> يرفق نسخة من أمر النقل والمباشرة في حال الانتقال من دائرة إلى أخرى.</li>
+                        <li><bdi>-5</bdi> يرفق نسخة من أمر التكليف في حال منصب مدير قسم فما فوق.</li>
+                        <li><bdi>-6</bdi> يرفق نسخة من الأمر الجامعي في حال إضافة عبارة (دكتور).</li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- التوقيعات الرئيسية -->
-            <div class="main-signatures-row">
-                <div class="main-sig">
-                    ختم وتوقيع مدير عام دائرة الموظف
-                </div>
-                <div class="main-sig">
-                    ختم وتوقيع مدير قسم التصاريح الأمنية
-                </div>
+            <div class="footer">
+                SPD-QP-01,03,01-15 JUN.2023
             </div>
-
-            <!-- توقيعات المسؤولين -->
-            <div class="sub-signatures-row">
-                <div class="sub-sig">
-                    توقيع مسؤول شعبة<br>المعلومات
-                </div>
-                <div class="sub-sig">
-                    توقيع مسؤول شعبة<br>التصاريح
-                </div>
-                <div class="sub-sig">
-                    توقيع مسؤول شعبة<br>الهويات
-                </div>
-            </div>
-
-            <!-- الملاحظات -->
-         <div class="notes-section">
-    <div class="notes-title">ملاحظات:-</div>
-    <ul class="notes-list">
-        <li><bdi>-1</bdi> يرفق نسخة من البطاقة الوطنية.</li>
-        <li><bdi>-2</bdi> يرفق نسخة من الأمر الوزاري بالتعيين ونسخة من كتاب المباشرة في حال الإصدار الأول.</li>
-        <li><bdi>-3</bdi> يرفق نسخة من الأمر الاداري في حال فقدان الهوية.</li>
-        <li><bdi>-4</bdi> يرفق نسخة من أمر النقل والمباشرة في حال الانتقال من دائرة إلى أخرى.</li>
-        <li><bdi>-5</bdi> يرفق نسخة من أمر التكليف في حال منصب مدير قسم فما فوق.</li>
-        <li><bdi>-6</bdi> يرفق نسخة من الأمر الجامعي في حال إضافة عبارة (دكتور).</li>
-     </ul>
-            </div>
-        </div>
-
-        <div class="footer">
-            SPD-QP-01,03,01-15 JUN.2023
         </div>
     </div>
 
     <script>
-        function toggleCheck(element) {
-            const checkbox = element.querySelector('.check-box');
-            checkbox.classList.toggle('checked');
-            localStorage.setItem('checkbox_' + checkbox.dataset.value, checkbox.classList.contains('checked'));
+        // متغير لتخزين نوع الإصدار المختار
+        let selectedIssueType = null;
+
+        // اختيار نوع الإصدار
+        function selectIssueType(btn) {
+            document.querySelectorAll('.issue-type-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedIssueType = btn.dataset.value;
         }
 
-        function restoreCheckboxes() {
-            document.querySelectorAll('.check-box').forEach(box => {
-                if (localStorage.getItem('checkbox_' + box.dataset.value) === 'true') {
-                    box.classList.add('checked');
-                }
-            });
-        }
+        // تعبئة الاستمارة
+        function fillForm() {
+            const fullName = document.getElementById('form-fullName').value;
+            const englishName = document.getElementById('form-englishName').value;
+            const jobTitle = document.getElementById('form-jobTitle').value;
+            const position = document.getElementById('form-position').value;
+            const circleName = document.getElementById('form-circleName').value;
+            const mobileNumber = document.getElementById('form-mobileNumber').value;
 
-        function clearForm() {
-            if(confirm('هل أنت متأكد من مسح جميع البيانات؟')) {
-                document.querySelectorAll('input[type="text"]').forEach(input => {
-                    input.value = '';
-                    localStorage.removeItem(input.id);
-                });
-                document.querySelectorAll('.check-box').forEach(box => {
-                    box.classList.remove('checked');
-                    localStorage.removeItem('checkbox_' + box.dataset.value);
-                });
+            // التحقق من الحقول المطلوبة
+            if (!fullName || !jobTitle || !position || !circleName || !mobileNumber) {
+                alert('الرجاء ملء جميع الحقول المطلوبة (الم marked بـ *)');
+                return;
             }
+
+            if (!selectedIssueType) {
+                alert('الرجاء اختيار نوع الإصدار');
+                return;
+            }
+
+            // نقل البيانات إلى الاستمارة
+            document.getElementById('fullName').value = fullName;
+            document.getElementById('englishName').value = englishName;
+            document.getElementById('jobTitle').value = jobTitle;
+            document.getElementById('position').value = position;
+            document.getElementById('circleName').value = circleName;
+            document.getElementById('mobileNumber').value = mobileNumber;
+
+            // تحديث مربعات الاختيار
+            document.querySelectorAll('.check-box').forEach(box => box.classList.remove('checked'));
+            if (selectedIssueType) {
+                const checkBox = document.getElementById('check-' + selectedIssueType);
+                if (checkBox) checkBox.classList.add('checked');
+            }
+
+            // حفظ في localStorage
+            saveToStorage();
+
+            alert('تم تعبئة الاستمارة بنجاح! يمكنك الآن طباعتها.');
         }
 
+        // طباعة الاستمارة
         function printForm() {
+            const fullName = document.getElementById('fullName').value;
+            if (!fullName) {
+                alert('الرجاء تعبئة الاستمارة أولاً بالضغط على "تعبئة الاستمارة"');
+                return;
+            }
             window.print();
         }
 
-        function savePDF() {
-            const element = document.getElementById('formPage');
-            const opt = {
-                margin: 0,
-                filename: 'استمارة_هوية_الوزارة.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true,
-                    backgroundColor: '#ffffff'
-                },
-                jsPDF: {
-                    unit: 'mm',
-                    format: 'a4',
-                    orientation: 'portrait'
-                }
-            };
+        // مسح الكل
+        function clearAll() {
+            if (!confirm('هل أنت متأكد من مسح جميع البيانات؟')) return;
 
-            html2pdf().set(opt).from(element).save().then(() => {
-                alert('تم حفظ الملف بنجاح!');
+            // مسح نموذج التواصل
+            document.querySelectorAll('.form-control').forEach(input => {
+                input.value = '';
             });
+
+            // إلغاء اختيار نوع الإصدار
+            document.querySelectorAll('.issue-type-btn').forEach(btn => btn.classList.remove('active'));
+            selectedIssueType = null;
+
+            // مسح الاستمارة
+            document.querySelectorAll('.field-input').forEach(input => {
+                input.value = '';
+            });
+            document.querySelectorAll('.check-box').forEach(box => box.classList.remove('checked'));
+
+            // مسح من التخزين
+            localStorage.clear();
         }
 
-        // حفظ تلقائي
-        document.querySelectorAll('input[type="text"]').forEach(input => {
-            const saved = localStorage.getItem(input.id);
-            if(saved) input.value = saved;
-            input.addEventListener('input', function() {
-                localStorage.setItem(this.id, this.value);
-            });
-        });
+        // حفظ في التخزين المحلي
+        function saveToStorage() {
+            const data = {
+                fullName: document.getElementById('form-fullName').value,
+                englishName: document.getElementById('form-englishName').value,
+                jobTitle: document.getElementById('form-jobTitle').value,
+                position: document.getElementById('form-position').value,
+                circleName: document.getElementById('form-circleName').value,
+                mobileNumber: document.getElementById('form-mobileNumber').value,
+                issueType: selectedIssueType
+            };
+            localStorage.setItem('formData', JSON.stringify(data));
+        }
 
-        window.addEventListener('load', restoreCheckboxes);
+        // استعادة من التخزين
+        function restoreFromStorage() {
+            const saved = localStorage.getItem('formData');
+            if (!saved) return;
+
+            try {
+                const data = JSON.parse(saved);
+                document.getElementById('form-fullName').value = data.fullName || '';
+                document.getElementById('form-englishName').value = data.englishName || '';
+                document.getElementById('form-jobTitle').value = data.jobTitle || '';
+                document.getElementById('form-position').value = data.position || '';
+                document.getElementById('form-circleName').value = data.circleName || '';
+                document.getElementById('form-mobileNumber').value = data.mobileNumber || '';
+
+                if (data.issueType) {
+                    selectedIssueType = data.issueType;
+                    document.querySelectorAll('.issue-type-btn').forEach(btn => {
+                        if (btn.dataset.value === data.issueType) {
+                            btn.classList.add('active');
+                        }
+                    });
+                }
+
+                // تعبئة الاستمارة تلقائياً
+                document.getElementById('fullName').value = data.fullName || '';
+                document.getElementById('englishName').value = data.englishName || '';
+                document.getElementById('jobTitle').value = data.jobTitle || '';
+                document.getElementById('position').value = data.position || '';
+                document.getElementById('circleName').value = data.circleName || '';
+                document.getElementById('mobileNumber').value = data.mobileNumber || '';
+
+                if (data.issueType) {
+                    const checkBox = document.getElementById('check-' + data.issueType);
+                    if (checkBox) checkBox.classList.add('checked');
+                }
+            } catch (e) {
+                console.error('Error restoring data:', e);
+            }
+        }
+
+        // استعادة البيانات عند التحميل
+        window.addEventListener('load', restoreFromStorage);
     </script>
 
 </body>
