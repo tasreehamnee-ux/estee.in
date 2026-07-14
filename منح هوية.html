@@ -998,34 +998,7 @@
             // حفظ في localStorage
             saveToStorage();
 
-            // === إرسال البيانات إلى Firebase ===
-            try {
-                const firebaseData = {
-                    formType: "منح هوية",
-                    name: fullName, // mapping to dashboard field
-                    english_name: englishName,
-                    job_title: jobTitle, // mapping to dashboard field
-                    position: position,
-                    department: circleName, // mapping to dashboard field
-                    mobileNumber: mobileNumber,
-                    issueType: selectedIssueType,
-                    status: "قيد المراجعة",
-                    notes1: "نوع الإصدار: " + selectedIssueType, // to appear in dashboard modal
-                    notes2: "رقم الموبايل: " + mobileNumber, // to appear in dashboard modal
-                    notes3: "المنصب: " + position, // to appear in dashboard modal
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                };
-
-                db.collection("ministry_employees").add(firebaseData).then(() => {
-                    alert('تم تعبئة الاستمارة وإرسالها إلى قاعدة البيانات بنجاح! يمكنك الآن طباعتها.');
-                }).catch((error) => {
-                    console.error("Error adding document: ", error);
-                    alert('تم حفظ البيانات محلياً، ولكن حدث خطأ أثناء الإرسال لقاعدة البيانات.');
-                });
-            } catch (e) {
-                console.error("Firebase error: ", e);
-                alert('تم تعبئة الاستمارة بنجاح! يمكنك الآن طباعتها.');
-            }
+            alert('تم تعبئة الاستمارة بنجاح! يمكنك الآن طباعتها.');
         }
 
         // طباعة الاستمارة
@@ -1117,27 +1090,6 @@
 
         // استعادة البيانات عند التحميل
         window.addEventListener('load', restoreFromStorage);
-    </script>
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-    <script>
-        // إعدادات Firebase الخاصة بك
-        const firebaseConfig = {
-            apiKey: "AIzaSyAdKLNZenjeOjMPez9-XXzbCA5wBw8WfAg",
-            authDomain: "mawkei.firebaseapp.com",
-            projectId: "mawkei",
-            storageBucket: "mawkei.firebasestorage.app",
-            messagingSenderId: "302655443025",
-            appId: "1:302655443025:web:b06312faf0e1782f7c6870",
-            measurementId: "G-JNGE8W27G3"
-        };
-
-        // تهيئة Firebase
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const db = firebase.firestore();
     </script>
 
 </body>
