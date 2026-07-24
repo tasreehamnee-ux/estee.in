@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الاستمارات الواردة</title>
+    
+    <!-- خطوط جوجل (Cairo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+            padding: 20px 40px;
+            min-height: 100vh;
+        }
+
+        /* ===== الهيدر العلوي ===== */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            margin-bottom: 25px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-icon {
+            background: #fff8e1;
+            color: #ffb300;
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .header-text h1 {
+            font-size: 22px;
+            color: #1a237e; /* لون أزرق غامق كما في الصورة */
+            margin: 0 0 2px 0;
+            font-weight: 800;
+        }
+
+        .header-text p {
+            margin: 0;
+            color: #8792a1;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* الأزرار العلوية المستديرة (Badges) */
+        .badge-status {
+            background: #e0f2f1;
+            color: #00897b;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #00b0ff; /* نقطة سماوية */
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 176, 255, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(0, 176, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 176, 255, 0); }
+        }
+
+        .badge-count {
+            background: #fff8e1;
+            color: #f57f17;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* ===== المحتوى الرئيسي ===== */
+        .main-container {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            min-height: 500px;
+        }
+
+        /* رأس الجدول */
+        .table-header {
+            display: grid;
+            grid-template-columns: 50px 140px 130px 1fr 140px 1fr 160px;
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            color: #495057;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        /* سطور الجدول */
+        .table-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 50px 140px 130px 1fr 140px 1fr 160px;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f1f3f5;
+            align-items: center;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            transition: all 0.2s;
+        }
+
+        .table-row:hover {
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-bottom-color: transparent;
+        }
+
+        /* أنواع الاستمارات */
+        .type-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .type-new { background: #e3f2fd; color: #1976d2; }
+        .type-replace { background: #f3e5f5; color: #7b1fa2; }
+        .type-damaged { background: #fff3e0; color: #e65100; }
+        .type-lost { background: #ffebee; color: #c62828; }
+
+        /* أزرار التفاصيل والحذف */
+        .actions-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .btn-details {
+            background: #f8f9fa;
+            color: #495057;
+            border: 1px solid #dee2e6;
+            padding: 6px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            transition: 0.2s;
+            font-size: 12px;
+        }
+
+        .btn-details:hover {
+            background: #e9ecef;
+        }
+
+        .btn-delete {
+            background: #fff;
+            color: #dc3545;
+            border: 1px solid #dc3545;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+            font-size: 12px;
+        }
+
+        .btn-delete:hover {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        /* ===== حالة عدم وجود بيانات (Empty State) ===== */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            border: 1px dashed #ced4da;
+            border-radius: 15px;
+            color: #adb5bd;
+            display: none; /* مخفي افتراضياً */
+        }
+
+        .empty-state svg {
+            width: 50px;
+            height: 50px;
+            fill: #ced4da;
+            margin-bottom: 15px;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+            color: #8792a1;
+        }
+
+        /* ===== شاشة التحميل ===== */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+            font-weight: 600;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1a237e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn-logout:hover { background: #ffcdd2; }
+
+        /* ===== نافذة التفاصيل (Modal) ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-header {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .modal-header h2 { margin: 0; font-size: 18px; color: #1a237e; font-weight: 800; }
+        .close-btn {
+            background: none; border: none; font-size: 20px; color: #6c757d; cursor: pointer; transition: 0.2s;
+        }
+        .close-btn:hover { color: #dc3545; }
+        .modal-body { 
+            padding: 25px; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .detail-item { margin-bottom: 5px; }
+        .detail-item.full-width { grid-column: span 2; }
+        .detail-label { font-size: 13px; color: #8792a1; font-weight: 700; margin-bottom: 5px; }
+        .detail-value { font-size: 15px; color: #333; font-weight: 600; background: #f4f6f8; padding: 12px; border-radius: 8px; border: 1px solid #e9ecef;}
+        .modal-footer {
+            padding: 15px 25px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .btn-print {
+            background: #1a237e; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-family: 'Cairo'; font-weight: 700; transition: 0.2s;
+        }
+        .btn-print:hover { background: #121858; }
+
+        /* الطباعة */
+        @media print {
+            body * { visibility: hidden; }
+            .modal-content, .modal-content * { visibility: visible; }
+            .modal-content { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; }
+            .modal-footer, .close-btn { display: none !important; }
+            .modal-body { grid-template-columns: 1fr; } /* عمود واحد في الطباعة */
+            body { background: white; }
+        }
+
+        @media (max-width: 992px) {
+            .table-header, .table-row {
+                grid-template-columns: 50px 120px 100px 1fr 120px 1fr; /* إخفاء التفاصيل أو الدائرة */
+                font-size: 12px;
+            }
+            .modal-body { grid-template-columns: 1fr; } /* عمود واحد في الموبايل */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- المحتوى الخاص بلوحة التحكم -->
+    <div id="dashboardContent">
+        <!-- الهيدر العلوي -->
+        <div class="top-header">
+            <div class="header-right">
+                <div class="header-icon">
+                    📝 <!-- أيقونة استمارة/ملاحظة -->
+                </div>
+                <div class="header-text">
+                    <h1>لوحة الاستمارات الواردة</h1>
+                    <p>متابعة وعرض طلبات الاستمارات بشكل حي ومباشر</p>
+                </div>
+            </div>
+            <div class="header-left">
+                <button class="btn-logout" onclick="logoutAdmin()">تسجيل الخروج</button>
+                <div class="badge-status">
+                    متصل
+                    <div class="status-dot"></div>
+                </div>
+                <div class="badge-count" id="countBadge">
+                    عدد الاستمارات: 0
+                </div>
+            </div>
+        </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main-container">
+        
+        <!-- رأس الجدول -->
+        <div class="table-header">
+            <div>ت</div>
+            <div>تاريخ التقديم</div>
+            <div>نوع الاستمارة</div>
+            <div>مقدم الطلب</div>
+            <div dir="ltr">رقم الموبايل</div>
+            <div>الدائرة/الجهة</div>
+            <div>التفاصيل</div>
+        </div>
+
+        <!-- شاشة التحميل -->
+        <div id="loadingIndicator" class="loading">
+            <div class="spinner"></div>
+            جاري تحميل البيانات...
+        </div>
+
+        <!-- حاوية السطور -->
+        <div class="table-body" id="tableBody">
+            <!-- سيتم إضافة السطور هنا برمجياً -->
+        </div>
+
+        <!-- حالة لا توجد بيانات -->
+        <div class="empty-state" id="emptyState">
+            <!-- أيقونة مجلد فارغ SVG -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z"/>
+            </svg>
+            <p>لا توجد استمارات واردة حالياً.</p>
+        </div>
+
+    </div> <!-- نهاية محتوى لوحة التحكم -->
+
+    <!-- مكتبات Firebase (Compat Version) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    
+    <script>
+        // إعدادات Firebase الخاصة بك
+        const firebaseConfig = {
+            apiKey: "AIzaSyA0CBhb_NIW1m8f5krGw2WVQSn4WXapzwc",
+            authDomain: "manhhwei.firebaseapp.com",
+            projectId: "manhhwei",
+            storageBucket: "manhhwei.firebasestorage.app",
+            messagingSenderId: "381979436962",
+            appId: "1:381979436962:web:0cb2e3ef1af49e03ecb4fb",
+            measurementId: "G-45CNTV4N03"
+        };
+
+        // تهيئة Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // بيانات أنواع الاستمارات
+        const issueTypeData = {
+            'new': { label: 'إصدار جديد', class: 'type-new' },
+            'replace': { label: 'تبديل', class: 'type-replace' },
+            'damaged': { label: 'بدل تالف', class: 'type-damaged' },
+            'lost': { label: 'بدل ضائع', class: 'type-lost' }
+        };
+
+        // متغير لتخزين جميع البيانات لتسهيل عرض التفاصيل
+        window.allFormsData = {};
+
+        // وظيفة جلب وعرض البيانات (بتحديث حي ومباشر)
+        function loadData() {
+            const tableBody = document.getElementById('tableBody');
+            const emptyState = document.getElementById('emptyState');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const countBadge = document.getElementById('countBadge');
+            
+            // تنبيه للمستخدم إذا طال وقت التحميل
+            const timeoutCheck = setTimeout(() => {
+                if (loadingIndicator.style.display !== 'none') {
+                    loadingIndicator.innerHTML = '<div style="color: #c62828; font-weight:bold;">تأخر الاتصال بقاعدة البيانات. الرجاء التأكد من إنشاء قاعدة بيانات Firestore في حسابك وأنك متصل بالإنترنت.</div>';
+                }
+            }, 10000); // 10 ثواني
+            
+            try {
+                // جلب البيانات مرتبة حسب الأحدث بشكل حي
+                db.collection("formSubmissions").orderBy("timestamp", "desc").onSnapshot((querySnapshot) => {
+                    clearTimeout(timeoutCheck);
+                    loadingIndicator.style.display = 'none';
+                    tableBody.innerHTML = ''; // مسح الجدول الحالي
+                    
+                    if (querySnapshot.empty) {
+                        emptyState.style.display = 'flex';
+                        countBadge.innerHTML = 'عدد الاستمارات: 0';
+                    } else {
+                        emptyState.style.display = 'none';
+                        let count = 0;
+                        window.allFormsData = {}; // إعادة تهيئة الذاكرة
+                        
+                        querySnapshot.forEach((docSnap) => {
+                            const data = docSnap.data();
+                            const id = docSnap.id;
+                            count++;
+                            
+                            // حفظ البيانات في الذاكرة لعرض التفاصيل لاحقاً
+                            window.allFormsData[id] = data;
+                            
+                            const issueInfo = issueTypeData[data.issueType] || { label: 'غير محدد', class: 'type-new' };
+                            
+                            // تنسيق التاريخ
+                            let dateStr = '-';
+                            if(data.timestamp) {
+                                const dateObj = new Date(data.timestamp);
+                                dateStr = dateObj.toLocaleDateString('ar-IQ');
+                            }
+
+                            // إنشاء السطر
+                            const row = document.createElement('div');
+                            row.className = 'custom-table-row table-row';
+                            
+                            row.innerHTML = `
+                                <div>${count}</div>
+                                <div>${dateStr}</div>
+                                <div><span class="type-badge ${issueInfo.class}">${issueInfo.label}</span></div>
+                                <div style="color: #1a237e;">${data.fullName || '-'}</div>
+                                <div dir="ltr">${data.mobileNumber || '-'}</div>
+                                <div>${data.circleName || '-'}</div>
+                                <div class="actions-group">
+                                    <button class="btn-delete" onclick="deleteEntry('${id}')">حذف</button>
+                                    <button class="btn-details" onclick="viewDetails('${id}')">التفاصيل</button>
+                                </div>
+                            `;
+                            
+                            tableBody.appendChild(row);
+                        });
+
+                        // تحديث العداد
+                        countBadge.innerHTML = `عدد الاستمارات: ${count}`;
+                    }
+                }, (error) => {
+                    clearTimeout(timeoutCheck);
+                    console.error("Error fetching documents: ", error);
+                    loadingIndicator.style.display = 'none';
+                    
+                    if (error.message && error.message.includes('index')) {
+                        alert("تحتاج إلى تفعيل الفهرسة (Index). افتح Console واضغط على الرابط لإنشائه.");
+                    } else {
+                        alert("حدث خطأ أثناء جلب البيانات. تأكد أنك قمت بإنشاء قاعدة بيانات Firestore من لوحة تحكم Firebase وتغيير قواعدها (Rules).");
+                    }
+                });
+
+            } catch (error) {
+                clearTimeout(timeoutCheck);
+                console.error("Error setting up listener: ", error);
+                loadingIndicator.style.display = 'none';
+            }
+        }
+
+        // دالة الحذف
+        window.deleteEntry = async function(id) {
+            if(confirm("هل أنت متأكد من حذف هذه الاستمارة بشكل نهائي؟")) {
+                try {
+                    await db.collection("formSubmissions").doc(id).delete();
+                    // لا حاجة لـ loadData() لأن onSnapshot سيقوم بالتحديث تلقائياً
+                } catch (error) {
+                    console.error("Error deleting document: ", error);
+                    alert("حدث خطأ أثناء الحذف.");
+                }
+            }
+        };
+
+        // دالة عرض الاستمارة للطباعة
+        window.viewDetails = function(id) {
+            const data = window.allFormsData[id];
+            if(!data) return;
+
+            // حفظ بيانات الاستمارة المحددة في الذاكرة لكي يقرأها ملف index.html
+            localStorage.setItem('printData', JSON.stringify(data));
+
+            // فتح ملف الاستمارة الأصلية في وضع الطباعة في تبويب جديد
+            window.open('index.html?mode=print', '_blank');
+        };
+
+        // تشغيل مراقب تسجيل الدخول عند تحميل الصفحة
+        loadData();
+    </script>
+</body>
+</html>
